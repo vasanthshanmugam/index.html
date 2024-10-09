@@ -1,1 +1,95 @@
-Hello world
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Pick Your Performance Testing Tool</h1>
+
+        <!-- Tool selection dropdown -->
+        <label for="tool">Pick your tool:</label>
+        <select id="tool" name="tool" onchange="populateOptions()">
+            <option value="" selected disabled>Select a tool</option>
+            <option value="neoload">Neoload</option>
+            <option value="jmeter">JMeter</option>
+            <option value="loadrunner">LoadRunner</option>
+        </select>
+
+        <br>
+
+        <!-- Second dropdown for features -->
+        <label for="features">Choose a feature:</label>
+        <select id="features" name="features" disabled>
+            <option value="">Select a feature</option>
+        </select>
+    </div>
+
+    <script>
+        // Define features for each tool
+        const toolFeatures = {
+            neoload: ["Parameterization", "Correlation", "Creating Script"],
+            jmeter: ["Parameterization", "Correlation", "Creating Script"],
+            loadrunner: ["Parameterization", "Correlation", "Creating Script"]
+        };
+
+        // Function to populate the second dropdown based on tool selection
+        function populateOptions() {
+            const toolSelect = document.getElementById("tool");
+            const featureSelect = document.getElementById("features");
+            const selectedTool = toolSelect.value;
+
+            // Clear the feature dropdown
+            featureSelect.innerHTML = "";
+
+            // Enable feature dropdown
+            featureSelect.disabled = false;
+
+            // Add placeholder
+            const placeholderOption = document.createElement("option");
+            placeholderOption.text = "Select a feature";
+            placeholderOption.value = "";
+            featureSelect.add(placeholderOption);
+
+            // Populate features based on the selected tool
+            toolFeatures[selectedTool].forEach(function (feature) {
+                const option = document.createElement("option");
+                option.text = feature;
+                option.value = feature.toLowerCase().replace(" ", "_"); // Create a value for the feature
+                featureSelect.add(option);
+            });
+        }
+    </script>
+
+</body>
+</html>
